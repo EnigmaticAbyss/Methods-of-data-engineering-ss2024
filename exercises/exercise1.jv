@@ -17,7 +17,7 @@ pipeline FlugPipline {
       block FlugTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            "Lfd. Nummer" oftype text,
+            "Lfd. Nummer" oftype integer,
             "Name des Flughafens" oftype text,
             "Ort" oftype text,
             "Land" oftype text,
