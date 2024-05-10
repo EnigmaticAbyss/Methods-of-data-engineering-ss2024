@@ -1,0 +1,45 @@
+pipeline HerbPipline {
+    HerbExtractor 
+        -> HerbTextFileInterpreter
+        -> HerbCSVInterpreter 
+        -> HerbColumnDeleter
+        -> HerbTableInterpreter
+        -> HerbLoader;
+           block HerbExtractor oftype HttpExtractor {
+
+        url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
+    }
+      block HerbTextFileInterpreter oftype TextFileInterpreter { }
+      block HerbCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+        enclosing: '"';
+        enclosingEscape: '"';
+    } 
+    valuetype cityType oftype text {
+    constraints: [ cityStart ];
+    } 
+    constraint cityStart oftype RegexConstraint{
+      regex: /^Furth-/;
+    }
+    block HerbColumnDeleter oftype ColumnDeleter {
+      delete: [column E];
+    }
+    block HerbTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "lfd_nr" oftype integer,
+            "stadtteil" oftype cityType,
+            "standort" oftype text,
+            "baumart_botanisch" oftype text,
+            "baumart_deutsch" oftype text,
+            "id" oftype text,
+            "baumfamilie" oftype text
+        ];
+        
+    }  
+
+    block HerbLoader oftype SQLiteLoader {
+        table: "trees";
+        file: "./trees.sqlite";
+    }
+}
