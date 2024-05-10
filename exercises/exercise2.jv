@@ -40,8 +40,8 @@ pipeline HerbPipline {
             "stadtteil" oftype cityType,
             "standort" oftype text,
             "baumart_botanisch" oftype text,
-            "baumart_deutsch" oftype geoType,
-            "id" oftype text,
+            "baumart_deutsch" oftype text,
+            "id" oftype geoType,
             "baumfamilie" oftype text
         ];
         
