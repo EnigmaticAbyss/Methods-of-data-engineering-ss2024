@@ -22,12 +22,14 @@ In this data engineering project, the focus lies on unraveling the intricate rel
 * Metadata URL: https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data
 * Data URLs: can be downloaded through the Kaggle API in this project the data of countries are being used https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data?select=GlobalLandTemperaturesByCountry.csv
 * Data Type: CSV
+#### Further information
 An extensive look of day to day change of climate in countries with their respective error rate. Some countries don't have their respective temperture data of 19th century which is compensated due to rich data set.
 
 ### Datasource2: Global Food & Agriculture Statistics
 * Metadata URL: https://www.kaggle.com/datasets/unitednations/global-food-agriculture-statistics
 * Data URL: Only the data regarding crops is being used https://www.kaggle.com/datasets/unitednations/global-food-agriculture-statistics?select=fao_data_crops_data.csv
 * Data Type: CSV
+#### Further information
 Quiet extensive data set of world UN data regarding 200 various crops of 200 different countries on yearly basis which makes it quiest comprehensive.
 
 
