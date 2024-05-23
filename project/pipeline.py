@@ -3,6 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 # Kaggle dataset details
+# Here we give two things in 
 datasets = [
     {"dataset": "berkeleyearth/climate-change-earth-surface-temperature-data", "file": "GlobalLandTemperaturesByCountry.csv"},
     {"dataset": "unitednations/global-food-agriculture-statistics", "file": "fao_data_crops_data.csv"}
