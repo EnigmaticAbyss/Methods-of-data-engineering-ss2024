@@ -33,7 +33,7 @@ def transform_data_first(file_path):
     df['year'] = df['dt'].dt.year
 
     # Filter the data to include only years greater than 2010
-    df_filtered = df[df['year'] > 2010]
+    df_filtered = df[df['year'] > 1961]
 
     # Drop the 'AverageTemperatureUncertainty' column
     df_filtered = df_filtered.drop(columns=['AverageTemperatureUncertainty'])
@@ -53,10 +53,18 @@ def transform_data_second(file_path):
     df = df.dropna()
     # Fix errors or apply any transformations as needed
     # Example: convert date columns to datetime
-    for col in df.columns:
-        if 'date' in col.lower():
-            df[col] = pd.to_datetime(df[col], errors='coerce')
-    return df
+    # Define the values you need in 'column2'
+    values_needed = ['tonnes', 'Ha']
+
+    # Filter the DataFrame
+    filtered_df = df[df['unit'].isin(values_needed)]
+    # Columns to drop
+    columns_to_drop = ['element_code', 'value_footnotes']
+
+    # Drop the specified columns
+    df_dropped = filtered_df.drop(columns=columns_to_drop)
+    print(df_dropped)
+    return df_dropped
 
 # Function to save DataFrame to SQLite
 def save_to_sqlite(df, db_name, table_name):
