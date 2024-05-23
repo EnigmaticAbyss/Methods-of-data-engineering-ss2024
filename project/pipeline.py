@@ -63,7 +63,7 @@ def transform_data_second(file_path):
 
     # Drop the specified columns
     df_dropped = filtered_df.drop(columns=columns_to_drop)
-    print(df_dropped)
+    # print(df_dropped)
     return df_dropped
 
 # Function to save DataFrame to SQLite
