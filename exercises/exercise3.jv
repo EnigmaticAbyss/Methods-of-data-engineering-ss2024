@@ -13,7 +13,7 @@ pipeline goodsPipline {
         url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
     }
       block goodsTextFileInterpreter oftype TextFileInterpreter {
-                encoding: "utf8";
+                encoding: "latin2";
        }
       block goodsCSVInterpreter oftype CSVInterpreter {
         delimiter: ";";
