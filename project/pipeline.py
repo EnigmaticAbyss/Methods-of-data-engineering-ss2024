@@ -3,7 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 # Kaggle dataset details
-# Here we give two things in 
+# Here we give two things in  data set name and the csv file we want to work on
 datasets = [
     {"dataset": "berkeleyearth/climate-change-earth-surface-temperature-data", "file": "GlobalLandTemperaturesByCountry.csv"},
     {"dataset": "unitednations/global-food-agriculture-statistics", "file": "fao_data_crops_data.csv"}
@@ -46,13 +46,13 @@ def transform_data_first(file_path):
 
 
     return df_grouped
-
+# second dataset transform method
 def transform_data_second(file_path):
     df = pd.read_csv(file_path)
     # Example transformation: drop missing values
     df = df.dropna()
     # Fix errors or apply any transformations as needed
-    # Example: convert date columns to datetime
+
     # Define the values you need in 'column2'
     values_needed = ['tonnes', 'Ha']
 

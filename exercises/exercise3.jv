@@ -1,0 +1,89 @@
+pipeline goodsPipline {
+    goodsExtractor 
+        -> goodsTextFileInterpreter
+        -> goodsCSVInterpreter 
+        ->  goodsCoreDataSelector
+         -> goodsRowDeleter
+        -> goodsColumnDeleter
+        ->HeaderSequenceWriter
+        -> goodsTableInterpreter
+        -> goodsLoader;
+           block goodsExtractor oftype HttpExtractor {
+
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+    }
+      block goodsTextFileInterpreter oftype TextFileInterpreter {
+                encoding: "latin2";
+       }
+      block goodsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+        // enclosing: '"';
+        // enclosingEscape: '"';
+    } 
+ block goodsCoreDataSelector oftype CellRangeSelector {
+   select: range A1:AU*;
+ }
+ block goodsRowDeleter oftype RowDeleter {
+    delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 7, row 8, row 41337, row 41338, row 41339];
+  
+ }
+    block goodsColumnDeleter oftype ColumnDeleter {
+      delete: [column F,column G,column H
+      ,column I,column J,column K
+      ,column L,column M,column N,column O
+      ,column P,column Q,column R,column S
+      ,column T,column V,column U,column W
+      ,column X,column Y,column Z,column AA
+      ,column AB,column AC,column AD,column AE,column AF,
+      column AG,column AH,column AI,column AJ,column AK,column AL
+      ,column AM,column AN,column AO,column AP,column AQ
+      ,column AR,column AS];
+    }
+ block HeaderSequenceWriter oftype CellWriter {
+   at: range A1:G1;
+   write: [ "year", "month", "goods_id", "goods_name", "goods_source","abroad","total"];
+ }
+    valuetype goodType oftype text {
+    constraints: [ goodStart ];
+    } 
+    constraint goodStart oftype RegexConstraint{
+      regex: /^NST7-[0-9A-Z]{3}$/;
+    }
+        valuetype positiveNoFormat oftype integer {
+        constraints: [
+            positiveNoOnly,
+        ];
+    }
+
+    constraint positiveNoOnly oftype RangeConstraint{
+        lowerBound: 0;
+    }
+ 
+    valuetype geoType oftype text {
+    constraints: [ GeoCon ];
+    } 
+    constraint GeoCon oftype RegexConstraint{
+      regex: /(\d{1,3}\.\d+),\s*(\d{1,3}\.\d+)/;
+    }
+// \{\d{1,3}\.\d+\}, \{\d{1,3}\.\d+\}
+
+
+    block goodsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "year" oftype positiveNoFormat,
+            "month" oftype text,
+            "goods_id" oftype goodType,
+            "goods_name" oftype text,
+            "goods_source" oftype text,
+            "abroad" oftype positiveNoFormat,
+            "total" oftype positiveNoFormat
+        ];
+        
+    }  
+
+    block goodsLoader oftype SQLiteLoader {
+        table: "goods";
+        file: "./goodsTransportedByTrain.sqlite";
+    }
+}
