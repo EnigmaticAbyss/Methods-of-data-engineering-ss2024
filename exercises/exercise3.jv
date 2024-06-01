@@ -24,7 +24,7 @@ pipeline goodsPipline {
 //    select: range A1:AU41336;
 //  }
  block goodsRowDeleter oftype RowDeleter {
-    delete: [row 2, row 3, row 4, row 5, row 6, row 7, row 8, row 9, row 41337, row 41338, row 41339];
+    delete: [row 2, row 3, row 4, row 5, row 6, row 7, row 8,  row 41337, row 41338, row 41339];
     // , row 41337, row 41338, row 41339
   
  }
@@ -62,7 +62,7 @@ pipeline goodsPipline {
 
 
 
-    block goodsTableInterpreter oftype TableInterpreter {
+ block goodsTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
             "year" oftype positiveNoFormat,
@@ -70,8 +70,8 @@ pipeline goodsPipline {
             "goods_id" oftype goodType,
             "goods_name" oftype text,
             "goods_source" oftype text,
-            "abroad" oftype integer,
-            "total" oftype integer
+            "abroad" oftype positiveNoFormat,
+            "total" oftype positiveNoFormat
         ];
         
     }  
