@@ -32,7 +32,7 @@ def transform_data_first(file_path):
     # Extract the year from the 'dt' column
     df['year'] = df['dt'].dt.year
 
-    # Filter the data to include only years greater than 2010
+    # Filter the data to include only years greater than 1961
     df_filtered = df[df['year'] > 1961]
 
     # Drop the 'AverageTemperatureUncertainty' column
@@ -53,8 +53,10 @@ def transform_data_second(file_path):
     df = df.dropna()
     # Fix errors or apply any transformations as needed
 
+    #Listing the units and ways of estimating crops
+    print(df['unit'])
     # Define the values you need in 'column2'
-    values_needed = ['tonnes', 'Ha']
+    values_needed = ['Hg/Ha','tonnes']
 
     # Filter the DataFrame
     filtered_df = df[df['unit'].isin(values_needed)]
