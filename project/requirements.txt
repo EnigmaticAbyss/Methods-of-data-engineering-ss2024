@@ -1,0 +1,11 @@
+# Testing framework
+pytest==6.2.5
+
+# Add other dependencies below
+# Install required packages
+ pandas==1.5.3
+ SQLAlchemy==2.0.25
+ kaggle==1.5.16
+ Scikit==1.4.2
+ statsmodels== 0.14.02
+
