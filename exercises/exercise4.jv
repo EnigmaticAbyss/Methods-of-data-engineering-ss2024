@@ -1,0 +1,97 @@
+
+pipeline mowestaPipeline {
+	mowestaExtractor
+		-> ZipArchiveInterpreter
+		-> DataFilePicker
+        ->mawestaTextFileInterpreter
+        -> mowesta_CSVInterpreter
+        -> mawestaColumnDeleter
+        -> HeaderSequenceWriter
+     
+
+        -> mowesta_TableInterpreter
+           -> CelsiusToFahrenheitTransformer
+           -> CelsiusToFahrenheitBatTransformer
+        -> DataLoader;
+
+	block mowestaExtractor oftype HttpExtractor {
+		url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+	}
+
+    block ZipArchiveInterpreter oftype ArchiveInterpreter {
+		archiveType: "zip";
+		}
+
+    block DataFilePicker oftype FilePicker { 
+		path: "/data.csv";
+		}
+     block mawestaTextFileInterpreter oftype TextFileInterpreter {
+                encoding: "latin2";
+       }       
+
+
+	block mowesta_CSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+		// enclosing: '"'; 
+		// enclosingEscape: '"';
+	}
+    block mawestaColumnDeleter oftype ColumnDeleter {
+      delete: [column F,column G,column H
+      ,column I,column K
+      ,column L,column M,column N,column O];
+    }
+     block HeaderSequenceWriter oftype CellWriter {
+   at: range A1:F1;
+   write: [ "id", "producer", "model", "month", "temperature","battery_temperature"];
+ }
+	// filter data
+    // Only keep stops from zone 2001
+	valuetype gerat oftype integer{ 
+		constraints:[gerater];
+		}
+	constraint gerater oftype RangeConstraint { 
+		lowerBound: 0; 
+		}
+
+ transform CelsiusToFahrenheit {
+   from Celsius oftype decimal;
+   to Fahrenheit oftype decimal;
+
+   Fahrenheit: (Celsius * 9/5) + 32;
+ }
+
+
+
+
+
+	// assign data types
+    // Use fitting SQLite types (e.g., BIGINT, TEXT or FLOAT) for all columns
+	block mowesta_TableInterpreter oftype TableInterpreter {
+		header: true;
+		columns: [
+			"id" oftype gerat,
+			"producer" oftype text,
+			"model" oftype text,
+			"month" oftype integer,
+			"temperature" oftype decimal,
+            "battery_temperature" oftype decimal
+			
+		];
+	}
+ block CelsiusToFahrenheitTransformer oftype TableTransformer{
+   inputColumns: ['temperature'];
+   outputColumn: 'temperature';
+   use: CelsiusToFahrenheit;
+ }
+  block CelsiusToFahrenheitBatTransformer oftype TableTransformer{
+   inputColumns: ['battery_temperature'];
+   outputColumn: 'battery_temperature';
+   use: CelsiusToFahrenheit;
+ }
+	// Load data
+    // Write data into a SQLite database called “gtfs.sqlite”, in the table “stops”
+	block DataLoader oftype SQLiteLoader {
+		table: "temperatures";
+		file: "temperatures.sqlite";
+	}
+}
