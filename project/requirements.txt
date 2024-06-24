@@ -8,4 +8,4 @@ pytest==6.2.5
  kaggle==1.5.16
  Scikit==1.4.2
  statsmodels== 0.14.02
-
+ scikit-learn==1.4.2
