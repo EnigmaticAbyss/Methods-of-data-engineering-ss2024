@@ -9,7 +9,7 @@ def run_pipeline():
     
     parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
     sys.path.append(parent_dir)
-    parent_script_path = os.path.join(parent_dir, 'parent_script.py')
+    parent_script_path = os.path.join(parent_dir, 'pipeline.py')
     subprocess.run(['python', parent_script_path], check=True)
     
     yield
