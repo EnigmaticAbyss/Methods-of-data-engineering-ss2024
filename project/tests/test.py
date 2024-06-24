@@ -1,14 +1,8 @@
-
 import os
-import sys
+import subprocess
+import pytest
 # Get the current directory of child_script.py
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Construct the path to the parent_script.py
-parent_script_path = os.path.join(current_dir, '..', 'parent_script.py')
-print(parent_script_path)
+script_path = os.path.join(os.path.dirname(__file__), '..', 'hello.py')
+subprocess.run(['python', script_path], check=True)
 
 
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-sys.path.append(parent_dir)
-print(parent_dir)
