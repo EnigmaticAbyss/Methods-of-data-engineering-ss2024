@@ -7,9 +7,14 @@ def run_pipeline():
     # Path to the pipeline script
     script_path = os.path.join(os.path.dirname(__file__), '..', 'pipeline.py')
         
-    # Execute the pipeline
-    subprocess.run(['python', script_path], check=True)
-    
+    try:
+        result = subprocess.run(['python', script_path], check=True, capture_output=True, text=True)
+        print(result.stdout)
+        print(result.stderr)
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        print(e.stdout)
+        print(e.stderr)
     yield
     
     # Clean up any generated files (if necessary)
