@@ -1,6 +1,6 @@
 # Exploring How Corona Relate to Happiness Factors Worldwide
 
-![grafik](https://github.com/EnigmaticAbyss/Methods-of-data-engineering-ss2024/assets/69069319/06a31011-badc-4fc1-9193-7825ec268729)
+![grafik](https://github.com/EnigmaticAbyss/Methods-of-data-engineering-ss2024/blob/main/climatefood_2400x900.png)
 
 This project looks at how various types of crops had affected the climate change. We want to find if there is a link about increase of countries temprature and amount of crop that is being harvested. Here different messures of crop production such as seeds, yields and gross pro- duction are considred as well. My intention is to use statistics and some machine learning methods to find out a relation between crops and global warming so that we get better understanding of themost dangerous crops for environment as well.
 
