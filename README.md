@@ -7,7 +7,7 @@ This project looks at how various types of crops had affected the climate change
 ## Porject report:
 In this link you can find a final report for the given project with results:
 
-https://github.com/EnigmaticAbyss/Methods-of-data-engineering-ss2024/blob/main/project/final-report.ipynb
+https://github.com/EnigmaticAbyss/Methods-of-data-engineering-ss2024/blob/main/project/data-analysis.ipynb
 
 ## Data Exploration
 if you are interested in exploring choosen dataset you can go over this file and see some visualization on them :
